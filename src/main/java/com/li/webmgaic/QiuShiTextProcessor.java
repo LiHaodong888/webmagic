@@ -32,7 +32,8 @@ public class QiuShiTextProcessor implements PageProcessor {
     public static void main(String[] args) {
         Spider.create(new QiuShiTextProcessor())
                 .addUrl("https://www.qiushibaike.com/text/")
-                .thread(5)
+                // 在这里加上
+                .thread(5).addPipeline(new QiuShiTextPipeLine())
                 .run();
     }
 
@@ -49,9 +50,13 @@ public class QiuShiTextProcessor implements PageProcessor {
         // 文字内容
         List<String> contentList = html.xpath("//div[@class='content']/span/text()").all();
 
-        System.out.println(imgList);
-        System.out.println(userNameList);
-        System.out.println(contentList);
+//        System.out.println(imgList);
+//        System.out.println(userNameList);
+//        System.out.println(contentList);
+
+        page.putField("imgList",imgList);
+        page.putField("userNameList",userNameList);
+        page.putField("contentList",contentList);
     }
 
 
